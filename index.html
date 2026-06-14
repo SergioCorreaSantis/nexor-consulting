@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NEXOR Consulting — Inteligencia operacional para proteger tus contratos y la relación con tus clientes. Control Operacional, Continuidad de Servicio, Gestión de Riesgo." />
+  <title>NEXOR Consulting — Inteligencia Operacional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- NAVBAR -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <header class="nav-header" id="nav-header">
+    <nav class="nav-inner">
+      <a href="#inicio" class="nav-logo" aria-label="NEXOR Consulting — inicio">
+        <svg class="nav-logo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="7" y="7" width="34" height="34" rx="3" fill="#0A192F" transform="rotate(45 24 24)" />
+          <line x1="16" y1="31" x2="16" y2="17" stroke="#B87333" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="16" y1="17" x2="32" y2="31" stroke="#B87333" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="32" y1="31" x2="32" y2="17" stroke="#B87333" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="3.5" fill="#B87333"/>
+          <circle cx="16" cy="17" r="2.5" fill="white" opacity="0.9"/>
+          <circle cx="32" cy="17" r="2.5" fill="white" opacity="0.9"/>
+        </svg>
+        <span class="nav-logo-text">NEXOR <span class="nav-logo-light">Consulting</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links" role="navigation" aria-label="Menú principal">
+        <li><a href="#inicio" class="nav-link">Inicio</a></li>
+        <li><a href="#riesgo" class="nav-link">El Riesgo</a></li>
+        <li><a href="#solucion" class="nav-link">Nuestra Solución</a></li>
+        <li><a href="#servicios" class="nav-link">Líneas de Servicio</a></li>
+        <li><a href="[https://calendly.com/sergio-correa-nexorconsulting/30min]" class="nav-link nav-link-cta" target="_blank" rel="noopener noreferrer">Contacto</a></li>
+      </ul>
+
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-drawer">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="nav-drawer" id="nav-drawer" aria-hidden="true" role="dialog" aria-label="Menú de navegación">
+    <div class="nav-drawer-overlay" id="nav-drawer-overlay"></div>
+    <nav class="nav-drawer-panel">
+      <button class="nav-drawer-close" id="nav-drawer-close" aria-label="Cerrar menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="nav-drawer-logo">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="36">
+          <rect x="7" y="7" width="34" height="34" rx="3" fill="#B87333" transform="rotate(45 24 24)" />
+          <line x1="16" y1="31" x2="16" y2="17" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="16" y1="17" x2="32" y2="31" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="32" y1="31" x2="32" y2="17" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="3.5" fill="white"/>
+        </svg>
+        <span>NEXOR</span>
+      </div>
+      <ul class="nav-drawer-links">
+        <li><a href="#inicio" class="nav-drawer-link">Inicio</a></li>
+        <li><a href="#riesgo" class="nav-drawer-link">El Riesgo</a></li>
+        <li><a href="#solucion" class="nav-drawer-link">Nuestra Solución</a></li>
+        <li><a href="#servicios" class="nav-drawer-link">Líneas de Servicio</a></li>
+        <li><a href="[INSERTAR_AQUÍ_TU_LINK_DE_CALENDLY]" class="nav-drawer-link nav-drawer-cta" target="_blank" rel="noopener noreferrer">Agendar Diagnóstico</a></li>
+      </ul>
+      <p class="nav-drawer-tagline">Industrial Intelligence.<br>Crafted by Data.</p>
+    </nav>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- HERO -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="hero" id="inicio">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span>Control Operacional</span>
+      <span class="eyebrow-sep">|</span>
+      <span>Continuidad de Servicio</span>
+      <span class="eyebrow-sep">|</span>
+      <span>Gestión de Riesgo</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Inteligencia operacional<br class="hero-br-desk" />
+      <em>para proteger tus contratos</em><br />
+      y la relación con tus clientes.
+    </h1>
+
+    <p class="hero-sub">
+      No somos una mutualidad ni una consultora administrativa.<br class="hero-br-desk" />
+      Transformamos las exigencias normativas en un panel de control<br class="hero-br-desk" />
+      analítico de <strong>alertas tempranas</strong>.
+    </p>
+
+    <div class="hero-actions">
+      <a href="[INSERTAR_AQUÍ_TU_LINK_DE_CALENDLY]" class="btn-primary" target="_blank" rel="noopener noreferrer">Agendar Diagnóstico Crítico (30 min)</a>
+      <a href="#solucion" class="btn-ghost">Ver Enfoque Operacional</a>
+    </div>
+
+    <div class="hero-indicators">
+      <div class="hero-indicator">
+        <span class="indicator-num">3</span>
+        <span class="indicator-label">Marcos Normativos<br>bajo un solo panel</span>
+      </div>
+      <div class="hero-indicator-sep"></div>
+      <div class="hero-indicator">
+        <span class="indicator-num">26</span>
+        <span class="indicator-label">Semanas al blindaje<br>contractual completo</span>
+      </div>
+      <div class="hero-indicator-sep"></div>
+      <div class="hero-indicator">
+        <span class="indicator-num">100<small>%</small></span>
+        <span class="indicator-label">Orientado a<br>la mandante</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECCIÓN 1: EL RIESGO -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="risk-section" id="riesgo">
+    <div class="section-container">
+      <div class="section-label">El Riesgo Contractual</div>
+      <h2 class="section-headline">
+        Tu operación puede estar dañando<br />
+        la relación con tus clientes<br />
+        <em>sin que lo notes.</em>
+      </h2>
+      <p class="section-lead">
+        Un quiebre menor en terreno escala rápidamente a fiscalizaciones.<br />
+        Cuando la mandante detecta el problema, el daño relacional ya está hecho.
+      </p>
+
+      <div class="risk-grid">
+        <!-- Card 1 -->
+        <article class="risk-card">
+          <div class="risk-card-number">01</div>
+          <div class="risk-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18" stroke="#B87333" stroke-width="1.5"/>
+              <path d="M20 10v12M20 28v2" stroke="#B87333" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="risk-card-title">Multas Directas DT</h3>
+          <p class="risk-card-body">
+            Impacto financiero inmediato en la última línea por incumplimientos en <strong>CEAL-SM</strong>, <strong>Ley Karin</strong> o <strong>DS44</strong>. El costo no es solo la multa: es la señal que envías a tu mandante.
+          </p>
+          <div class="risk-card-tag">Riesgo Financiero</div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="risk-card">
+          <div class="risk-card-number">02</div>
+          <div class="risk-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <rect x="8" y="8" width="24" height="24" rx="2" stroke="#B87333" stroke-width="1.5"/>
+              <path d="M14 20h12M20 14l6 6-6 6" stroke="#B87333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="risk-card-title">Bloqueo en Licitaciones</h3>
+          <p class="risk-card-body">
+            Sanciones laborales que impactan directamente el puntaje en <strong>SICEP / REGIC</strong>, dejándote fuera de carrera antes de competir. Pierdes la licitación antes de presentar la propuesta.
+          </p>
+          <div class="risk-card-tag">Riesgo Comercial</div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="risk-card">
+          <div class="risk-card-number">03</div>
+          <div class="risk-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M20 6L8 32h24L20 6z" stroke="#B87333" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M20 20v6M20 16v2" stroke="#B87333" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="risk-card-title">Crisis Operativa</h3>
+          <p class="risk-card-body">
+            Ausentismo descontrolado, licencias médicas prolongadas y alta rotación que terminan <strong>paralizando contratos activos</strong> con la mandante. El desgaste interno se convierte en dato que tu cliente evalúa.
+          </p>
+          <div class="risk-card-tag">Riesgo Operacional</div>
+        </article>
+      </div>
+
+      <div class="risk-footer-note">
+        <div class="risk-footer-icon" aria-hidden="true">→</div>
+        <p>Los problemas internos no resueltos siempre terminan impactando la calidad del servicio percibida por la mandante.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECCIÓN 2: LA DIFERENCIACIÓN -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="diff-section" id="solucion">
+    <div class="section-container">
+      <div class="section-label">La Diferenciación</div>
+      <h2 class="section-headline diff-headline">
+        No somos una mutualidad.<br />
+        Somos <em>Inteligencia Operacional.</em>
+      </h2>
+      <p class="section-lead">
+        Mientras el enfoque tradicional archiva el cumplimiento, NEXOR lo convierte en ventaja competitiva frente a tu mandante.
+      </p>
+
+      <!-- Desktop Table -->
+      <div class="diff-table-wrap" role="region" aria-label="Comparativa Enfoque Tradicional vs NEXOR">
+        <table class="diff-table">
+          <thead>
+            <tr>
+              <th class="diff-th diff-th-dim">Dimensión</th>
+              <th class="diff-th diff-th-trad">Enfoque Tradicional</th>
+              <th class="diff-th diff-th-nexor">
+                <span class="diff-nexor-badge">NEXOR Consulting</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="diff-row">
+              <td class="diff-td diff-td-dim">Propósito</td>
+              <td class="diff-td diff-td-trad">Cumplir la normativa a nivel de archivo</td>
+              <td class="diff-td diff-td-nexor">Proteger la operación y la continuidad del contrato comercial</td>
+            </tr>
+            <tr class="diff-row diff-row-alt">
+              <td class="diff-td diff-td-dim">Entregable</td>
+              <td class="diff-td diff-td-trad">Un informe PDF o Excel estático</td>
+              <td class="diff-td diff-td-nexor">Alertas en tiempo real, KPIs dinámicos y mapas de riesgo activos</td>
+            </tr>
+            <tr class="diff-row">
+              <td class="diff-td diff-td-dim">Enfoque</td>
+              <td class="diff-td diff-td-trad">Bienestar individual aislado</td>
+              <td class="diff-td diff-td-nexor">Desempeño colectivo y blindaje contractual frente a la mandante</td>
+            </tr>
+            <tr class="diff-row diff-row-alt">
+              <td class="diff-td diff-td-dim">Audiencia</td>
+              <td class="diff-td diff-td-trad">Exclusivo para Recursos Humanos</td>
+              <td class="diff-td diff-td-nexor">Gerencia General, Gerencia de Operaciones y Mandante</td>
+            </tr>
+            <tr class="diff-row">
+              <td class="diff-td diff-td-dim">Resultado</td>
+              <td class="diff-td diff-td-trad">Carpeta archivada</td>
+              <td class="diff-td diff-td-nexor">Decisiones accionables y gestión activa</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="diff-scroll-hint" aria-hidden="true">← Desliza para ver la tabla →</div>
+      </div>
+
+      <!-- Mobile Cards (hidden on desktop via CSS) -->
+      <div class="diff-cards-mobile" aria-hidden="true">
+        <div class="diff-mobile-card">
+          <div class="diff-mobile-dim">Propósito</div>
+          <div class="diff-mobile-row">
+            <div class="diff-mobile-col diff-mobile-trad"><span class="diff-mobile-label">Tradicional</span>Cumplir la normativa a nivel de archivo</div>
+            <div class="diff-mobile-col diff-mobile-nexor"><span class="diff-mobile-label">NEXOR</span>Proteger la operación y la continuidad del contrato</div>
+          </div>
+        </div>
+        <div class="diff-mobile-card">
+          <div class="diff-mobile-dim">Entregable</div>
+          <div class="diff-mobile-row">
+            <div class="diff-mobile-col diff-mobile-trad"><span class="diff-mobile-label">Tradicional</span>Informe PDF o Excel estático</div>
+            <div class="diff-mobile-col diff-mobile-nexor"><span class="diff-mobile-label">NEXOR</span>Alertas en tiempo real, KPIs dinámicos y mapas de riesgo</div>
+          </div>
+        </div>
+        <div class="diff-mobile-card">
+          <div class="diff-mobile-dim">Enfoque</div>
+          <div class="diff-mobile-row">
+            <div class="diff-mobile-col diff-mobile-trad"><span class="diff-mobile-label">Tradicional</span>Bienestar individual aislado</div>
+            <div class="diff-mobile-col diff-mobile-nexor"><span class="diff-mobile-label">NEXOR</span>Desempeño colectivo y blindaje contractual</div>
+          </div>
+        </div>
+        <div class="diff-mobile-card">
+          <div class="diff-mobile-dim">Audiencia</div>
+          <div class="diff-mobile-row">
+            <div class="diff-mobile-col diff-mobile-trad"><span class="diff-mobile-label">Tradicional</span>Exclusivo para Recursos Humanos</div>
+            <div class="diff-mobile-col diff-mobile-nexor"><span class="diff-mobile-label">NEXOR</span>Gerencia General, Operaciones y Mandante</div>
+          </div>
+        </div>
+        <div class="diff-mobile-card">
+          <div class="diff-mobile-dim">Resultado</div>
+          <div class="diff-mobile-row">
+            <div class="diff-mobile-col diff-mobile-trad"><span class="diff-mobile-label">Tradicional</span>Carpeta archivada</div>
+            <div class="diff-mobile-col diff-mobile-nexor"><span class="diff-mobile-label">NEXOR</span>Decisiones accionables y gestión activa</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="diff-tagline">Transformamos desgaste operacional en decisiones de negocio.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECCIÓN 3: LÍNEAS DE SERVICIO -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="services-section" id="servicios">
+    <div class="section-container">
+      <div class="section-label">Estructura de Retainers</div>
+      <h2 class="section-headline">
+        Líneas de Servicio.<br />
+        <em>Metodología probada.</em>
+      </h2>
+      <p class="section-lead">
+        Tres niveles de profundidad diseñados para diferentes exposiciones de riesgo y horizontes de transformación.
+      </p>
+
+      <div class="services-grid">
+        <!-- Servicio 1 -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-num">01</div>
+            <div class="service-duration">6 semanas</div>
+          </div>
+          <h3 class="service-title">Compliance<br>Digital</h3>
+          <p class="service-subtitle">Blindaje normativo de base</p>
+          <ul class="service-list">
+            <li>Diagnóstico integral SUSESO</li>
+            <li>Constitución legal de comités normativos</li>
+            <li>Blindaje ante la Dirección del Trabajo</li>
+            <li>Protocolo de respuesta ante fiscalización</li>
+          </ul>
+          <div class="service-laws">
+            <span class="law-badge">CEAL-SM</span>
+            <span class="law-badge">Ley Karin</span>
+            <span class="law-badge">DS44</span>
+          </div>
+          <a href="[https://calendly.com/sergio-correa-nexorconsulting/30min]" class="service-cta" target="_blank" rel="noopener noreferrer">Solicitar propuesta</a>
+        </article>
+
+        <!-- Servicio 2 — Destacado -->
+        <article class="service-card service-card-featured">
+          <div class="service-featured-badge">Más solicitado</div>
+          <div class="service-card-header">
+            <div class="service-num">02</div>
+            <div class="service-duration">12 semanas</div>
+          </div>
+          <h3 class="service-title">Inteligencia<br>Operacional</h3>
+          <p class="service-subtitle">Panel de control analítico</p>
+          <ul class="service-list">
+            <li>Todo lo incluido en Compliance Digital</li>
+            <li>Dashboard interactivo de alertas tempranas</li>
+            <li>Business Case financiero en CLP</li>
+            <li>Costo real del riesgo operacional</li>
+            <li>Plan de acción SMART con matriz RACI</li>
+            <li>Mapas de riesgo por área y turno</li>
+          </ul>
+          <div class="service-laws">
+            <span class="law-badge">SICEP</span>
+            <span class="law-badge">REGIC</span>
+            <span class="law-badge">KPIs</span>
+          </div>
+          <a href="[https://calendly.com/sergio-correa-nexorconsulting/30min]" class="service-cta service-cta-featured" target="_blank" rel="noopener noreferrer">Solicitar propuesta</a>
+        </article>
+
+        <!-- Servicio 3 -->
+        <article class="service-card">
+          <div class="service-card-header">
+            <div class="service-num">03</div>
+            <div class="service-duration">26 semanas</div>
+          </div>
+          <h3 class="service-title">Resiliencia<br>Operacional</h3>
+          <p class="service-subtitle">Blindaje contractual completo</p>
+          <ul class="service-list">
+            <li>Todo lo incluido en Inteligencia Operacional</li>
+            <li>Acompañamiento ante fiscalizaciones DT</li>
+            <li>Soporte en exigencias de la mandante</li>
+            <li>Retainer de alertas activo</li>
+            <li>Revisión periódica de indicadores SICEP</li>
+          </ul>
+          <div class="service-laws">
+            <span class="law-badge">Retainer</span>
+            <span class="law-badge">Mandante</span>
+            <span class="law-badge">DT</span>
+          </div>
+          <a href="[INSERTAR_AQUÍ_TU_LINK_DE_CALENDLY]" class="service-cta" target="_blank" rel="noopener noreferrer">Solicitar propuesta</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SECCIÓN 4: CONTACTO / CTA FINAL -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="cta-section" id="contacto">
+    <div class="section-container">
+      <div class="cta-inner">
+        <div class="cta-eyebrow">El paso siguiente</div>
+        <h2 class="cta-headline">
+          El problema no es<br />
+          cumplir el CEAL-SM.<br />
+          <em>El problema es no usarlo para proteger<br />tu operación.</em>
+        </h2>
+        <p class="cta-sub">
+          Agenda un diagnóstico crítico de 30 minutos con un Socio Director. Sin costo. Sin compromiso. Solo claridad sobre tu exposición real.
+        </p>
+        <div class="cta-actions">
+          <a href="[https://calendly.com/sergio-correa-nexorconsulting/30min]" class="btn-primary btn-large" target="_blank" rel="noopener noreferrer">Agendar Diagnóstico Crítico</a>
+        </div>
+        <div class="cta-contact-info">
+          <a href="mailto:contacto@nexorconsulting.cl" class="cta-contact-link">contacto@nexorconsulting.cl</a>
+          <span class="cta-contact-sep">·</span>
+          <a href="https://nexorconsulting.cl" class="cta-contact-link">nexorconsulting.cl</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FOOTER -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="28">
+          <rect x="7" y="7" width="34" height="34" rx="3" fill="#B87333" transform="rotate(45 24 24)" />
+          <line x1="16" y1="31" x2="16" y2="17" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="16" y1="17" x2="32" y2="31" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+          <line x1="32" y1="31" x2="32" y2="17" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+        </svg>
+        <span class="footer-logo-text">NEXOR Consulting</span>
+      </div>
+      <p class="footer-tagline">Industrial Intelligence. Crafted by Data.</p>
+      <div class="footer-links">
+        <a href="#inicio" class="footer-link">Inicio</a>
+        <a href="#riesgo" class="footer-link">El Riesgo</a>
+        <a href="#solucion" class="footer-link">Nuestra Solución</a>
+        <a href="#servicios" class="footer-link">Servicios</a>
+        <a href="[INSERTAR_AQUÍ_TU_LINK_DE_CALENDLY]" class="footer-link" target="_blank" rel="noopener noreferrer">Agendar</a>
+      </div>
+      <p class="footer-copy">&copy; 2025 NEXOR Consulting SpA. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- CHAT WIDGET — NEXOR .ai -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="chat-widget" id="chat-widget" aria-live="polite">
+    <!-- Botón flotante -->
+    <button class="chat-fab" id="chat-fab" aria-label="Abrir asistente NEXOR .ai" aria-expanded="false" aria-controls="chat-window">
+      <span class="chat-fab-icon chat-fab-open" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </span>
+      <span class="chat-fab-icon chat-fab-close" aria-hidden="true" style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </span>
+      <span class="chat-fab-label">NEXOR .ai</span>
+    </button>
+
+    <!-- Ventana de chat -->
+    <div class="chat-window" id="chat-window" aria-hidden="true" role="dialog" aria-label="NEXOR .ai — Asistente de Continuidad Operacional">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-header-title">NEXOR <span class="chat-header-ai">.ai</span></div>
+          <div class="chat-header-sub">Asistente de Continuidad Operacional</div>
+        </div>
+        <div class="chat-status">
+          <span class="chat-status-dot" aria-hidden="true"></span>
+          <span>En línea</span>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chat-messages" aria-label="Mensajes del chat">
+        <!-- El saludo inicial se inyecta desde script.js -->
+      </div>
+
+      <!-- Área de opciones de botones interactivos (inyectada dinámicamente) -->
+      <div class="chat-options-area" id="chat-options-area" style="display:none;" aria-label="Opciones de respuesta"></div>
+
+      <!-- Formulario de contacto (inyectado al final del flujo) -->
+      <div class="chat-lead-form" id="chat-lead-form" style="display:none;">
+        <div class="chat-lead-form-header">
+          <span class="chat-lead-form-icon" aria-hidden="true">⚡</span>
+          <strong>Datos de Contacto</strong>
+        </div>
+        <p class="chat-lead-form-msg">Un Socio Director revisará tu perfil de riesgo y se comunicará contigo a la brevedad:</p>
+        <div class="chat-lead-form-inputs">
+          <input type="text"  id="lead-nombre"   class="chat-alert-input" placeholder="Nombre completo"            aria-label="Nombre" autocomplete="name" />
+          <input type="text"  id="lead-empresa"  class="chat-alert-input" placeholder="Nombre de la empresa"       aria-label="Empresa" autocomplete="organization" />
+          <input type="email" id="lead-email"    class="chat-alert-input" placeholder="correo@tuempresa.cl"        aria-label="Correo corporativo" autocomplete="email" />
+          <input type="tel"   id="lead-telefono" class="chat-alert-input" placeholder="+56 9 XXXX XXXX"            aria-label="Teléfono" autocomplete="tel" />
+          <button class="chat-alert-submit" id="lead-submit">Enviar y ser contactado →</button>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu consulta…" aria-label="Escribe tu consulta" autocomplete="off" />
+        <button class="chat-send" id="chat-send" aria-label="Enviar mensaje">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
