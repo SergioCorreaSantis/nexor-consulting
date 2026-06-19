@@ -54,23 +54,92 @@
 
   /* Estado de calificación del lead */
   const leadData = {
-    dotacion: null,
-    cealSM:   null,
-    nombre:   null,
-    empresa:  null,
-    email:    null,
-    telefono: null,
+    dotacion:     null,  // label visible (ej. "Entre 10 y 25 trabajadores")
+    tramoId:      null,  // id interno (tramo_1 .. tramo_4)
+    respuestas:   {},    // { p1: 'Sí'|'No', p2: ..., p3: ..., p4: ..., p5: ..., p6: ... }
+    puntaje:      0,     // puntaje acumulado de respuestas "No"
+    nivelRiesgo:  null,  // BAJA | MEDIA | ALTA | CRÍTICA
+    nombre:       null,
+    empresa:      null,
+    email:        null,
+    telefono:     null,
   };
 
   /* Pasos del flujo del chatbot */
   const STEPS = {
     GREETING:  'greeting',
     DOTACION:  'dotacion',
-    CEAL_SM:   'ceal_sm',
+    P1:        'p1',
+    P2:        'p2',
+    P3:        'p3',
+    P4:        'p4',
+    P5:        'p5',
+    P6:        'p6',
     FORM:      'form',
     DONE:      'done',
   };
   let currentStep = STEPS.GREETING;
+
+  /* ─── PREGUNTAS DE LA MATRIZ (Ley Karin / CEAL-SM / RIHS / CPHS) ───
+   * Cada pregunta define:
+   *   - id: clave usada en leadData.respuestas y en el payload
+   *   - texto: texto exacto a mostrar
+   *   - puntajeNo: puntos sumados si la respuesta es "No"
+   *   - opciones: [{label, value}] — value 'si' resta puntaje (0), 'no' suma puntajeNo
+   *   - aplica(tramoId): función que determina si la pregunta se gatilla para el tramo actual
+   */
+  const PREGUNTAS = [
+    {
+      id: 'p1',
+      texto: '¿Cuentas con el Protocolo de Prevención del Acoso Sexual, Laboral y Violencia en el Trabajo (Ley Karin) redactado, difundido e incorporado en el RIHS?',
+      puntajeNo: 35,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No', value: 'no' }],
+      aplica: () => true, // BLOQUE A — todas las empresas
+    },
+    {
+      id: 'p2',
+      texto: '¿Has evaluado los riesgos psicosociales en los últimos 2 años utilizando el nuevo cuestionario CEAL-SM (SUSESO)?',
+      puntajeNo: 25,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No', value: 'no' }],
+      aplica: () => true, // BLOQUE A — todas las empresas
+    },
+    {
+      id: 'p3',
+      texto: '¿Tienes tu Reglamento Interno de Higiene y Seguridad (RIHS) actualizado y registrado en la Dirección del Trabajo (DT)?',
+      puntajeNo: 20,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No', value: 'no' }],
+      aplica: (tramoId) => ['tramo_2', 'tramo_3', 'tramo_4'].includes(tramoId), // BLOQUE B
+    },
+    {
+      id: 'p4',
+      texto: '¿Cuentan formalmente con un Delegado de Personal elegido por los trabajadores para representarlos ante temas de seguridad?',
+      puntajeNo: 15,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No', value: 'no' }],
+      aplica: (tramoId) => ['tramo_2', 'tramo_3', 'tramo_4'].includes(tramoId), // BLOQUE B
+    },
+    {
+      id: 'p5',
+      texto: '¿Tienen constituido y funcionando activamente el Comité Paritario de Higiene y Seguridad (CPHS) bajo el DS 54?',
+      puntajeNo: 25,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No', value: 'no' }],
+      aplica: (tramoId) => tramoId === 'tramo_4', // BLOQUE C
+    },
+    {
+      id: 'p6',
+      texto: 'Si tienes más de 100 trabajadores, ¿cuentas con un Departamento de Prevención de Riesgos dirigido por un experto?',
+      puntajeNo: 15,
+      opciones: [{ label: 'Sí', value: 'si' }, { label: 'No / No aplica', value: 'no' }],
+      aplica: (tramoId) => tramoId === 'tramo_4', // BLOQUE C
+    },
+  ];
+
+  /* Tramos de tamaño de empresa */
+  const TRAMOS = [
+    { id: 'tramo_1', label: 'Menos de 10 trabajadores' },
+    { id: 'tramo_2', label: 'Entre 10 y 25 trabajadores' },
+    { id: 'tramo_3', label: 'Entre 26 y 49 trabajadores' },
+    { id: 'tramo_4', label: '50 o más trabajadores' },
+  ];
 
 
   /* ─── NAVBAR SCROLL ─────────────────────────────────────────── */
@@ -271,65 +340,107 @@
     await botReply(
       'NEXOR transforma exigencias normativas como <strong>CEAL-SM</strong>, <strong>Ley Karin</strong> y <strong>DS44</strong> en un panel de control de alertas tempranas. ' +
       'Tu mandante monitorea el cumplimiento: nosotros nos aseguramos de que vea una operación blindada, no una carpeta archivada.<br><br>' +
-      '¿Cuántos trabajadores tiene tu empresa?'
+      '¿Cuántos trabajadores contratados tiene actualmente tu empresa?'
     );
     askDotacionOptions();
   }
 
-  /* PASO 1: Dotación */
+  /* PASO 1: Pregunta Filtro Inicial — Tamaño de Empresa */
   async function askDotacion() {
-    await botReply('Para orientarte con precisión, ¿cuántos trabajadores tiene actualmente tu empresa?');
+    await botReply('¿Cuántos trabajadores contratados tiene actualmente tu empresa?');
     askDotacionOptions();
   }
 
   function askDotacionOptions() {
     currentStep = STEPS.DOTACION;
     showOptions(
-      [
-        { label: 'Menos de 10 trabajadores',     value: '<10'    },
-        { label: 'Entre 10 y 30 trabajadores',   value: '10-30'  },
-        { label: 'Entre 30 y 50 trabajadores',   value: '30-50'  },
-        { label: 'Más de 50 trabajadores',       value: '>50'    },
-      ],
+      TRAMOS.map((t) => ({ label: t.label, value: t.id })),
       (value, label) => {
+        leadData.tramoId  = value;
         leadData.dotacion = label;
         appendMessage(label, 'user');
-        askCealSM();
+        askPregunta(0); // inicia secuencia de preguntas desde P1
       }
     );
   }
 
-  /* PASO 2: Estado CEAL-SM */
-  async function askCealSM() {
-    currentStep = STEPS.CEAL_SM;
-    await botReply(
-      '¿La empresa cuenta actualmente con la evaluación <strong>CEAL-SM</strong> (Cuestionario de Evaluación de Ambientes Laborales — Salud Mental) implementada?'
-    );
+  /* ─── SECUENCIA DE PREGUNTAS (BLOQUES A / B / C) ─────────────
+   * Recorre PREGUNTAS en orden; salta las que no aplican según
+   * el tramo de empresa seleccionado (lógica de bloques B y C).
+   */
+  async function askPregunta(index) {
+    if (index >= PREGUNTAS.length) {
+      finalizarMatriz();
+      return;
+    }
+
+    const pregunta = PREGUNTAS[index];
+
+    /* Si la pregunta no aplica al tramo actual, saltar a la siguiente */
+    if (!pregunta.aplica(leadData.tramoId)) {
+      askPregunta(index + 1);
+      return;
+    }
+
+    currentStep = STEPS[pregunta.id.toUpperCase()] || currentStep;
+
+    await botReply(pregunta.texto);
+
     showOptions(
-      [
-        { label: 'Sí, completamente al día.',           value: 'completo'       },
-        { label: 'En proceso de implementación.',       value: 'en_proceso'     },
-        { label: 'No / Desconozco la normativa.',       value: 'no_desconoce'   },
-      ],
+      pregunta.opciones,
       (value, label) => {
-        leadData.cealSM = label;
         appendMessage(label, 'user');
-        transitionToForm(value);
+
+        /* Guardar respuesta y sumar puntaje si corresponde */
+        leadData.respuestas[pregunta.id] = label;
+        if (value === 'no') {
+          leadData.puntaje += pregunta.puntajeNo;
+        }
+
+        askPregunta(index + 1);
       }
     );
   }
 
-  /* Transición al formulario según estado CEAL-SM */
-  async function transitionToForm(cealValue) {
+  /* ─── CÁLCULO DE LA MATRIZ DE RIESGO SENSIBILIZADA ───────────
+   * 1) Forzado por criticidad comercial/legal: tramo_3 o tramo_4
+   *    con puntaje >= 40 => CRÍTICA, sin importar la escala estándar.
+   * 2) En el resto de los casos, se aplica la escala estándar por
+   *    rangos numéricos.
+   */
+  function calcularNivelRiesgo(puntaje, tramoId) {
+    const esEmpresaGrande = tramoId === 'tramo_3' || tramoId === 'tramo_4';
+
+    if (esEmpresaGrande && puntaje >= 40) {
+      return 'CRÍTICA';
+    }
+
+    if (puntaje >= 70) return 'CRÍTICA';
+    if (puntaje >= 40) return 'ALTA';   // solo empresas <26 trabajadores llegan aquí sin forzarse a CRÍTICA
+    if (puntaje >= 15) return 'MEDIA';
+    return 'BAJA';
+  }
+
+  /* Finaliza la secuencia de preguntas, calcula el nivel de riesgo
+   * y transiciona al formulario de contacto */
+  async function finalizarMatriz() {
+    leadData.nivelRiesgo = calcularNivelRiesgo(leadData.puntaje, leadData.tramoId);
+    await transitionToForm(leadData.nivelRiesgo);
+  }
+
+  /* Transición al formulario según Nivel de Riesgo calculado */
+  async function transitionToForm(nivelRiesgo) {
     currentStep = STEPS.FORM;
 
     let contextMsg = '';
-    if (cealValue === 'completo') {
-      contextMsg = 'Excelente punto de partida. NEXOR convierte esa medición en inteligencia operacional que tu mandante puede ver en tiempo real, no en un informe archivado.';
-    } else if (cealValue === 'en_proceso') {
-      contextMsg = 'Estás en el momento crítico. Acompañar bien este proceso puede convertirse en una ventaja competitiva frente a tu mandante y en licitaciones futuras.';
+    if (nivelRiesgo === 'CRÍTICA') {
+      contextMsg = 'Tu perfil presenta un <strong>Nivel de Riesgo Crítico</strong>. Una sanción puede bloquearte en SICEP antes de que presentes tu próxima propuesta. NEXOR puede evitarlo.';
+    } else if (nivelRiesgo === 'ALTA') {
+      contextMsg = 'Tu perfil presenta un <strong>Nivel de Riesgo Alto</strong>. Estás en el momento crítico para actuar: acompañar bien este proceso puede convertirse en una ventaja competitiva frente a tu mandante.';
+    } else if (nivelRiesgo === 'MEDIA') {
+      contextMsg = 'Tu perfil presenta un <strong>Nivel de Riesgo Medio</strong>. Hay brechas puntuales que, bien gestionadas, fortalecen tu posición frente a tu mandante.';
     } else {
-      contextMsg = 'La normativa SUSESO es de cumplimiento obligatorio. Una sanción puede bloquearte en SICEP antes de que presentes tu próxima propuesta. NEXOR puede evitarlo.';
+      contextMsg = 'Tu perfil presenta un <strong>Nivel de Riesgo Bajo</strong>. Buen punto de partida: NEXOR puede ayudarte a convertir ese cumplimiento en inteligencia operacional visible para tu mandante.';
     }
 
     await botReply(contextMsg);
@@ -414,8 +525,10 @@
    * • Empresa:         [Empresa]
    * • Correo:          [Correo Corporativo]
    * • Teléfono:        [Fono]
-   * • Tamaño Empresa:  [Opción Seleccionada]
-   * • Estado CEAL-SM:  [Opción Seleccionada]
+   * • Tamaño Empresa:  [Tramo seleccionado]
+   * • Puntaje Riesgo:  [Puntaje numérico acumulado]
+   * • Nivel de Riesgo: [BAJA / MEDIA / ALTA / CRÍTICA]
+   * • Respuestas P1-P6:[Detalle de cada respuesta]
    * --------------------------------------------------
    */
   async function sendLeadNotification(data) {
@@ -425,14 +538,22 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          source:    'NEXOR .ai Chat',
-          nombre:    data.nombre,
-          empresa:   data.empresa,
-          email:     data.email,
-          telefono:  data.telefono,
-          dotacion:  data.dotacion,
-          ceal_sm:   data.cealSM,
-          timestamp: new Date().toISOString(),
+          source:        'NEXOR .ai Chat',
+          nombre:        data.nombre,
+          empresa:       data.empresa,
+          email:         data.email,
+          telefono:      data.telefono,
+          dotacion:      data.dotacion,
+          tramo_id:      data.tramoId,
+          puntaje_total: data.puntaje,
+          nivel_riesgo:  data.nivelRiesgo,
+          respuesta_p1:  data.respuestas.p1 || null,
+          respuesta_p2:  data.respuestas.p2 || null,
+          respuesta_p3:  data.respuestas.p3 || null,
+          respuesta_p4:  data.respuestas.p4 || null,
+          respuesta_p5:  data.respuestas.p5 || null,
+          respuesta_p6:  data.respuestas.p6 || null,
+          timestamp:     new Date().toISOString(),
         }),
       });
       if (!response.ok) throw new Error(`Webhook error: ${response.status}`);
@@ -446,12 +567,20 @@
       }
 
       await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        nombre:   data.nombre,
-        empresa:  data.empresa,
-        email:    data.email,
-        telefono: data.telefono,
-        dotacion: data.dotacion,
-        ceal_sm:  data.cealSM,
+        nombre:        data.nombre,
+        empresa:       data.empresa,
+        email:         data.email,
+        telefono:      data.telefono,
+        dotacion:      data.dotacion,
+        tramo_id:      data.tramoId,
+        puntaje_total: data.puntaje,
+        nivel_riesgo:  data.nivelRiesgo,
+        respuesta_p1:  data.respuestas.p1 || null,
+        respuesta_p2:  data.respuestas.p2 || null,
+        respuesta_p3:  data.respuestas.p3 || null,
+        respuesta_p4:  data.respuestas.p4 || null,
+        respuesta_p5:  data.respuestas.p5 || null,
+        respuesta_p6:  data.respuestas.p6 || null,
       });
     }
   }
